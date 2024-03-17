@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, get_transcript )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -164,5 +164,27 @@ def user_tests_command(type):
         sys.exit(pytest.main(["-k", "KarmaIntegrationTests"]))
     # else:
     #     sys.exit(pytest.main(["-k", "App"]))
+
+
+@test.command("print", help="print get_transcript")
+@click.argument("type", default="all")
+def print_transcript(type):
+    studentID = input("Enter student ID: ")  # Prompt user to enter student ID
+    transcripts = get_transcript(studentID)   # Get transcript data for the student
+    if transcripts:
+        for transcript in transcripts:
+            if type == "all":
+                print(transcript.to_json())  # Print all transcript data as JSON
+            elif type == "id":
+                print(transcript.studentID)  # Print student ID
+            elif type == "gpa":
+                print(transcript.gpa)  # Print GPA
+            elif type == "fullname":
+                print(transcript.fullname)  # Print full name
+            # Add more options as needed
+            else:
+                print("Invalid type. Please choose 'all', 'id', 'gpa', 'fullname', or add more options.")
+    else:
+        print("Transcript not found for student with ID:", studentID)
 
 app.cli.add_command(test)

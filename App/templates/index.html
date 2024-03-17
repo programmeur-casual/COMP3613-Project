@@ -104,6 +104,11 @@
     <input type="file" id="csv-upload" accept=".csv">
 </div>
 
+<div class="file-upload-container">
+  <label for="pdf-upload">Upload Transcript File</label>
+  <input type="file" id="pdf-upload" accept=".pdf">
+</div>
+
 
 <!-- Rest of your content -->
 <script>
@@ -126,14 +131,43 @@
             })
             .then(data => {
                 console.log('File uploaded successfully:', data);
-                // Optionally, display a success message to the user
             })
             .catch(error => {
                 console.error('Error uploading file:', error.message);
-                // Optionally, display an error message to the user
             });
         }
     });
+</script>
+
+
+<script>
+  document.getElementById('pdf-upload').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const formData = new FormData();
+          formData.append('file', file);
+
+          fetch('/upload_transcript', {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => {
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  throw new Error('File upload failed');
+              }
+          })
+          .then(data => {
+              console.log('File uploaded successfully:', data);
+              // Optionally, display a success message to the user
+          })
+          .catch(error => {
+              console.error('Error uploading file:', error.message);
+              // Optionally, display an error message to the user
+          });
+      }
+  });
 </script>
 
 </body>
