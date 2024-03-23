@@ -20,3 +20,7 @@ def get_studentHome_page():
 @student_views.route('/leaderboard', methods=['GET'])
 def get_leaderboard_page():
     return render_template('Leaderboard.html')
+
+@student_views.route('/profile', methods=['GET'])
+def get_profile_page():
+    return render_template('StudentPage.html')
