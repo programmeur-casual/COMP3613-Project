@@ -8,6 +8,7 @@ import os
 import requests
 
 from App.controllers.transcript import create_transcript
+from App.controllers.student import *
 
 transcript_views = Blueprint('transcript_views', __name__)
 
@@ -27,7 +28,7 @@ def upload_transcript():
         filename = secure_filename(file.filename)
         file_path = os.path.join('App', 'Transcript', filename)  # Assuming 'App/Transcript' is the path to save transcript files
         file.save(file_path)
-        print("saved transcript file!")
+        #print("saved transcript file!")
 
         # Call transcript parser service
         try:
@@ -40,20 +41,25 @@ def upload_transcript():
                 #print(transcript_data)
                 
                 # Pass transcript_data dictionary as a single argument to create_transcript function
-                success = create_transcript(transcript_data)
+                success = ( create_transcript(transcript_data) )
                 if success:
-                    print("transcript data stored in database!")
-                    return jsonify({'message': 'Transcript uploaded and stored successfully'})
+                    print("transcript data stored in database from view!")
+                    successStudent = create_student_from_transcript(transcript_data)
+                    if successStudent:
+                        print("Student data stored in database!")
+                        return jsonify({'message': 'Student data stored in database from view'})
+                    
+                    return jsonify({'message': 'Transcript uploaded and stored successfully from view'})
                 else:
-                    print("failed to store transcript data in database!")
-                    return jsonify({'error': 'Failed to store transcript data in database'})
+                    print("failed to store transcript data in database from view!")
+                    return jsonify({'error': 'Failed to store transcript data in database from view'})
             else:
-                print("transcript parsing failed!")
-                return jsonify({'error': 'Transcript parsing failed'})
+                print("transcript parsing failed from view!")
+                return jsonify({'error': 'Transcript parsing failed from view'})
         except Exception as e:
-            print("failed to create transcript")
+            print("failed to create transcript from view")
             print(str(e))
-            return jsonify({'error': 'Failed to parse transcript'})
+            return jsonify({'error': 'Failed to parse transcript from view'})
     print("invalid file format!")
     return jsonify({'error': 'Invalid file format'})
 

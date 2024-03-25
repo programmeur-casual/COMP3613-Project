@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, get_transcript )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, get_transcript, get_student_by_UniId )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -188,3 +188,22 @@ def print_transcript(type):
         print("Transcript not found for student with ID:", studentID)
 
 app.cli.add_command(test)
+
+@test.command("printstu", help="print get_student")
+@click.argument("type", default="all")
+def print_student(type):
+    UniId = input("Enter student ID: ")
+    student = get_student_by_UniId(UniId)
+    if student:
+        if type == "all":
+            print(student.to_json(0))
+        # elif type == "id":
+        #     print(student.UniId)
+        # elif type == "gpa":
+        #     print(student.gpa)
+        # elif type == "fullname":
+        #     print(student.fullname)
+        else:
+            print("Invalid type. Please choose 'all', 'id', 'gpa', 'fullname', or add more options.")
+    else:
+        print("Student not found with ID:", UniId)

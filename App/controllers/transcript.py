@@ -10,7 +10,7 @@ def create_transcript(transcript_data):
         courses = transcript_data.get('courses', {})
         in_progress_courses = transcript_data.get('inProgressCourses', {})
 
-        print('Transcript data:', transcript_data)
+        #print('Transcript data:', transcript_data)
 
         # Function to split courses by semester
         def split_courses_by_semester(courses_dict):
@@ -18,7 +18,7 @@ def create_transcript(transcript_data):
             current_semester = None
             current_courses = {}
             for key, value in courses_dict.items():
-                if 'Semester' in key:  # Assuming semester keys start with '20' for years
+                if 'Semester' in key:  # Assuming semester keys start with 'Semester' for years
                     if current_semester:  # If there was a previous semester, store its courses
                         semesters[current_semester] = current_courses
                     current_semester = key
@@ -37,18 +37,28 @@ def create_transcript(transcript_data):
             for course, grade in semester_courses.items():
                 if grade:  # Check if grade is not empty
                     print(f"Adding completed course for {semester}: {course} - Grade: {grade}")
-                    new_transcript = Transcript(studentID=studentID, gpa=gpa, fullname=fullname, semester=semester, course=course, grade=grade, isInProgress=False)
-                    db.session.add(new_transcript)
+                    #check if already exists
+                    transcript = Transcript.query.filter_by(studentID=studentID, semester=semester, course=course).first()
+                    if not transcript:
+                        new_transcript = Transcript(studentID=studentID, semester=semester, course=course, grade=grade, isInProgress=False)
+                        db.session.add(new_transcript)
+                    else:
+                        print(f"Course {course} for {semester} already exists in database! (from controller) ")
 
         # Iterate through in-progress courses
         for semester, in_progress_semester_courses in in_progress_courses_by_semester.items():
             for in_progress_course in in_progress_semester_courses.keys():
                 print(f"Adding in-progress course for {semester}: {in_progress_course}")
-                new_transcript = Transcript(studentID=studentID, gpa=gpa, fullname=fullname, semester=semester, course=in_progress_course, grade='', isInProgress=True)
-                db.session.add(new_transcript)
+                #check if already exists
+                transcript = Transcript.query.filter_by(studentID=studentID, semester=semester, course=in_progress_course).first()
+                if not transcript:
+                    new_transcript = Transcript(studentID=studentID, semester=semester, course=in_progress_course, grade='', isInProgress=True)
+                    db.session.add(new_transcript)
+                else:
+                    print(f"Course {in_progress_course} for {semester} already exists in database! (from controller)")
 
         db.session.commit()
-        print("Transcript data stored in database!")
+        print("Transcript data stored succefully in database! (from controller)")
         return True
     except Exception as e:
         print("[transcript.create_transcript] Error occurred while creating new transcript: ", str(e))
