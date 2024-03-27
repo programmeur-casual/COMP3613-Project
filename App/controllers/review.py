@@ -1,8 +1,8 @@
 from App.models import Review
 from App.database import db 
 
-def create_review(staff, student, isPositive, points, details):
-    newReview = Review(staff, student, isPositive, points,details)
+def create_review(staff, studentID, studentName, isPositive, points, details,topcs):
+    newReview = Review(staff, studentName,studentID , isPositive, points,details,topics)
     db.session.add(newReview)
     try:
         db.session.commit()

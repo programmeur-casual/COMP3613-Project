@@ -13,16 +13,15 @@ def create_student(username, firstname, lastname, email, password, faculty, admi
         db.session.rollback()
         return False
     
+def get_student_by_name(firstname, lastname):
+    students = Student.query.filter_by(firstname=firstname, lastname=lastname).all()
+    if students:
+        return students
+    else:
+        return []
 
 def get_student_by_id(id):
     student = Student.query.filter_by(ID=id).first()
-    if student:
-        return student
-    else:
-        return None
-
-def get_student_by_username(username):
-    student = Student.query.filter_by(username=username).first()
     if student:
         return student
     else:
@@ -41,6 +40,13 @@ def get_students_by_degree(degree):
         return students
     else:
         return []
+
+def get_student_by_username(username):
+    student = Student.query.filter_by(username=username).first()
+    if student:
+        return student
+    else:
+        return None
 
 def get_all_students_json():
     students = Student.query.all()

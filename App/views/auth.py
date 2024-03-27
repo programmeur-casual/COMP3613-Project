@@ -37,7 +37,7 @@ def login_action():
         print("User type:", user_type)
         login_user(user)
         if (user.user_type == "staff"):
-            return redirect("/student_dashboard")  # Redirect to student dashboard
+            return redirect("/staff_dashboard")  # Redirect to student dashboard
         elif (user.user_type == "student"):
             return redirect("/student_dashboard")  # Redirect to staff dashboard
         # return redirect("/test")
@@ -45,8 +45,12 @@ def login_action():
     return 'bad username or password given', 401
 
 @auth_views.route('/student_dashboard', methods=['GET'])
-def home_page():
+def student_home_page():
     return render_template('Student-Home.html')
+
+@auth_views.route('/staff_dashboard', methods=['GET'])
+def staff_home_page():
+    return render_template('Staff-Home.html')
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():

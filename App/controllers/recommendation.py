@@ -20,6 +20,13 @@ def get_recommendations_student(createdByStudentID):
     else:
         return []
 
+def get_recommendation(id):
+    recs = Recommendation.query.filter_by(ID=id).first()
+    if recs:
+        return recs
+    else:
+        return []
+
 def get_recommendations_staff(taggedStaffID):
     recs = Recommendation.query.filter_by(taggedStaffID=taggedStaffID).all()
     if recs:

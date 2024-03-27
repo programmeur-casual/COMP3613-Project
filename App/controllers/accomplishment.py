@@ -1,15 +1,16 @@
 from App.models import Accomplishment
 from App.database import db 
 from .staff import (
-    get_staff_by_username
+    get_staff_by_name
 )
 from .student import (
-    get_student_by_username
+    get_student_by_id
 )
 
-def create_accomplishment(studentUsername, verified, taggedStaffUsername, details):
-    student = get_student_by_username(studentUsername)
-    staff = get_staff_by_username(taggedStaffUsername)
+def create_accomplishment(studentID, verified, taggedStaffName,topic, details):
+    student = get_staff_by_id(studentID)
+    firstname, lastname = taggedStaffName.split(' ')
+    staff = get_staff_by_name(firstname, lastname)
     if student is None:
         print("[accomplishment.create_accomplishment] Error occurred while creating new accomplishment: No student found.")
         return False
@@ -17,7 +18,7 @@ def create_accomplishment(studentUsername, verified, taggedStaffUsername, detail
         print("[accomplishment.create_accomplishment] Error occurred while creating new accomplishment: No staff found.")
         return False
 
-    newAccomplishment = Accomplishment(studentID=student.ID, verified=False, taggedStaffId=staff.ID, details=details)
+    newAccomplishment = Accomplishment(studentID=student.ID, verified=False, taggedStaffId=staff.ID,topic=topic, details=details)
     db.session.add(newAccomplishment)
 
     try:
@@ -51,6 +52,13 @@ def get_accomplishment(id):
         
 def get_accomplishments_by_studentID(studentID):
     accomplishments = Accomplishment.query.filter_by(createdByStudentID=studentID).all()
+    if accomplishments:
+        return accomplishments
+    else:
+        return []
+
+def get_accomplishments_by_staffID(staffID):
+    accomplishments = Accomplishment.query.filter_by(taggedStaffId=staffID).all()
     if accomplishments:
         return accomplishments
     else:

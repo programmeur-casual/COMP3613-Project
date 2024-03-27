@@ -91,7 +91,7 @@
             cursor: pointer;
             width: 100%;
         }
-       
+
         .recommendation-form img{
             width: 100px;
             height: 100px;
@@ -146,24 +146,17 @@
     </header>
 
     <div class="recommendation-form">
-        <img src="IR.png" alt="Student Conduct Tracker">
-        <h2>Incident Report</h2>
-        <form class = "sm" action="{{ url_for('staff_views.newIncidentReport') }}" method="post"> <!-- Added action="#" method="post" -->
+        <img src="SS.png" alt="Student Conduct Tracker">
+        <h2>Student Search</h2>
+        <form class = "sm"> <!-- Added action="#" method="post" -->
             <input type="text" id="name" name="name" placeholder="Name" required>
-            <input type="text" id="studentID" name="studentID" placeholder="Student ID" required>
-            <input type="text" id="topic" name="topic" placeholder="Topic" required>
-            <textarea id="details" name="details" placeholder="Details" rows="5" required></textarea>
-            <div class="deduct-points-section">
-                <label for="points-dropdown">Deduct Points:</label>
-                <select id="points-dropdown" name="points-dropdown">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-        <option value="4">4</option>
-<option value="5">5</option>
-</select>
-</div>
-<button type="submit">Submit</button>
+            <input type="text" id="studentID" name="studentID" placeholder="Student ID" >
+            <input type="text" id="faculty" name="faculty" placeholder="Faculty" >
+            <input type="text" id="degree" name="degree" placeholder="Degree" >
+
+
+
+<button type="submit">Search</button>
 </div>
 </form>
 

@@ -66,7 +66,7 @@
 
 
 .text, .text2, .text3 {
-  position: absolute; /* Absolute positioning to place text exactly where it's needed */
+  position: relative; /* Absolute positioning to place text exactly where it's needed */
   font-size: 118px; /* Adjust as needed */
    /* Assuming you want bold text */
   color: #0056b3; /* Adjust the color to match your design */
@@ -199,7 +199,7 @@ body > *:not(footer) {
     <!-- Adjusted to only have the left side curved -->
     <li><a href="#">Home</a></li>
     <li><a href="#">Profile</a></li>
-    <li><a href="#">Logout</a></li>
+    <li><a href="/logout">Logout</a></li>
   </ul>
   <div class="user-avatar"></div> <!-- Changed to a div with background for better control -->
 </header>
@@ -209,26 +209,24 @@ body > *:not(footer) {
 <span class="text2">Tracker</span>
 <span class="text3">Conduct</span>
 
-
-
-
 </main>
 
 <div class="gradient-box">
   <a href="/student-page" class="image-link">
-    <img src="CR.png" alt="Student Page">
+    <img src="CR.png" alt="Create Review">
     <span class="text4"> Create Review </span>
   </a>
-  <a href="/leaderboard" class="image-link">
-    <img src="SS.png" alt="Leaderboard">
+  <a href="/studentSearch" class="image-link">
+    <img src="SS.png" alt="Student Search">
     <span class="text4"> Student Search </span>
   </a>
-  <a href="/upload-transcript" class="image-link">
-    <img src="IR.png" alt="Upload Transcript">
+  <a href="/incidentReport" class="image-link">
+    <img src="IR.png" alt="Incident Report">
     <span class="text4"> Incident Report</span>
-    <a href="/upload-transcript" class="image-link">
-    <img src="ER.png" alt="Upload Transcript">
-    <span class="text4"> Edit Review</span>
+
+    <a href="/reviewSearch" class="image-link">
+    <img src="ER.png" alt="Review Search">
+    <span class="text4"> Review Search</span>
   </a>
 </div>
 

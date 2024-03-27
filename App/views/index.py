@@ -8,16 +8,22 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 def index_page():
     return render_template('login.html')
 
-@index_views.route('/init', methods=['GET'])
-def init():
-    db.drop_all()
-    db.create_all()
-    create_user('bob', 'bobpass')
-    return jsonify(message='db initialized!')
 
-@index_views.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({'status':'healthy'})
+@index_views.route('/staffhome', methods=['GET'])
+def get_staffHome_page():
+    return render_template('Staff-Home.html')
+
+@index_views.route('/incidentReport', methods=['GET'])
+def staff_ir_page():
+    return render_template('IncidentReport.html')
+
+@index_views.route('/studentSearch', methods=['GET'])
+def student_search_page():
+    return render_template('StudentSearch.html')
+
+@index_views.route('/reviewSearch', methods=['GET'])
+def review_search_page():
+    return render_template('ReviewSearch.html')
 
 @index_views.route('/images/<path:filename>', methods=['GET'])
 def serve_image(filename):
