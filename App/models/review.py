@@ -16,7 +16,6 @@ class Review(db.Model):
 
   def __init__(self, staff,name, studentID, isPositive, points,details,topics):
     self.createdByStaffID = staff.ID
-    # self.student= student
     self.studentID = studentID
     self.studentName=name
     self.isPositive = isPositive

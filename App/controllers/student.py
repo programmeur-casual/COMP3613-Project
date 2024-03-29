@@ -7,7 +7,6 @@ def create_student(username, firstname, lastname, email, password, faculty, admi
     try:
         db.session.commit()
         return True
-        # return newStudent
     except Exception as e:
         print("[student.create_student] Error occurred while creating new student: ", str(e))
         db.session.rollback()

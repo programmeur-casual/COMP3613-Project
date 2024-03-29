@@ -12,7 +12,9 @@ from App.controllers import (
     get_student_by_id,
     get_recommendations_staff,
     get_accomplishments_by_staffID,
-    get_recommendation
+    get_recommendation,
+    get_student_by_name,
+    get_students_by_faculty
 )
 
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
@@ -21,6 +23,29 @@ staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 Page/Action Routes
 '''
 
+@staff_views.route('/staffhome', methods=['GET'])
+def get_staffHome_page():
+    return render_template('Staff-Home.html')
+
+@staff_views.route('/incidentReport', methods=['GET'])
+def staff_ir_page():
+    return render_template('IncidentReport.html')
+
+@staff_views.route('/studentSearch', methods=['GET'])
+def student_search_page():
+    return render_template('StudentSearch.html')
+
+@staff_views.route('/reviewSearch', methods=['GET'])
+def review_search_page():
+    return render_template('ReviewSearch.html')
+
+@staff_views.route('/proposedAchievements', methods=['GET'])
+def proposedAchievements_page():
+    return render_template('ProposedAchivements.html')
+
+@staff_views.route('/recRequests', methods=['GET'])
+def recRequests_page():
+    return render_template('RecommendationRequests.html')
 
 @staff_views.route('/newIncidentReport', methods=['POST', 'GET'])
 @login_required
@@ -48,24 +73,23 @@ def newIncidentReport():
     
   return redirect('/incidentReport')
 
-@staff_views.route('/student_search', methods=['GET'])
+@staff_views.route('/searchStudent', methods=['GET'])
 @login_required
 def studentSearch():
-
-    if not isinstance(current_user, Staff):
-        return "Unauthorized", 401
-  
-    name = request.form.get('name')
-    studentID = request.form.get('studentID')
-    faculty = request.form.get('faculty')
-    degree = request.form.get('degree')
-
+    
+    name = request.args.get('name')
+    studentID = request.args.get('studentID')
+    faculty = request.args.get('faculty')
+    degree = request.args.get('degree')
+    
     query = Student.query
 
     if name:  
         firstname, lastname = name.split(' ')
         # Filtering by firstname and lastname if they are provided
         query = query.filter_by(firstname=firstname, lastname=lastname)
+
+    test=Student.query.all()
 
     if studentID:  
         student = get_student_by_id(studentID)
@@ -83,9 +107,10 @@ def studentSearch():
 
     students = query.all()
 
-    if students:
+    if test:
         # Render all matching students
-        return jsonify([student.serialize() for student in students])
+        #print(f"{students.name}")
+        return f"{test}"
     else:
         return "No matching records", 404
 
