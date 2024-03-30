@@ -18,6 +18,7 @@ def initialize():
     db.create_all()
     create_student(username="billy", firstname="Billy", lastname="John", email="billy@example.com", password="billypass", faculty="FST", admittedTerm="2022/2023", yearofStudy=2, degree="BSc Computer Science", gpa="3.5")
     create_staff(username="timmy", firstname="Timmy", lastname="James", email="timmy@example.com", password="timmypass", faculty="FST")
+    create_accomplishment(1, 1, "staff staff", "accomplishmenttopic","accomplishmentdetails", 2)
     print('database intialized')
 
 # '''

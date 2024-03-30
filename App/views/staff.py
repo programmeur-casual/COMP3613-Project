@@ -14,7 +14,8 @@ from App.controllers import (
     get_accomplishments_by_staffID,
     get_recommendation,
     get_student_by_name,
-    get_students_by_faculty
+    get_students_by_faculty,
+    get_staff_by_id
 )
 
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
@@ -89,8 +90,6 @@ def studentSearch():
         # Filtering by firstname and lastname if they are provided
         query = query.filter_by(firstname=firstname, lastname=lastname)
 
-    test=Student.query.all()
-
     if studentID:  
         student = get_student_by_id(studentID)
         if student:
@@ -107,10 +106,8 @@ def studentSearch():
 
     students = query.all()
 
-    if test:
-        # Render all matching students
-        #print(f"{students.name}")
-        return f"{test}"
+    if students:
+        return render_template('ssresult.html',students=students)
     else:
         return "No matching records", 404
 
@@ -152,8 +149,10 @@ def reviewSearch(reviewID):
 @staff_views.route('/allAchievementApproval', methods=['GET'])
 @login_required
 def allAchievementApproval():
-    staffID= current_user.get_id()
-    achievements = get_accomplishments_by_staffID(staffID)
+    
+    staff_id = current_user.get_id()
+    staff= get_staff_by_id(staff_id)
+    
     return render_template('', achievements = achievements)
 
 @staff_views.route('/allRecommendationRequests', methods=['GET'])

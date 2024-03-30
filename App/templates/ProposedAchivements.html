@@ -159,7 +159,7 @@
         <img src="proposed.png" alt="Recommendation Icon" class="recommendation-image">
     </div>
 
-    <!-- New student card -->
+    {% for achievement  in achievements %}
     <div class="student-card">
         <div class="student-info">
             <h3>John Doe</h3>
@@ -167,11 +167,10 @@
         </div>
         <div class="student-buttons">
         <button >Student Profile</button>
-       \
             <button class="decline">Full Review</button>
         </div>
     </div>
-
+    {% endfor %}
     <!-- Rest of your content -->
 </body>
 </html>

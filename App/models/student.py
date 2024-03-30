@@ -8,7 +8,6 @@ class Student(User):
     admittedTerm = db.Column(db.String(120), nullable=False)
     yearOfStudy = db.Column(db.Integer, nullable=False)
     gpa = db.Column(db.String(120), nullable=True)
-    
     reviews = db.relationship('Review', backref='studentReviews', lazy='joined')
     accomplishments = db.relationship('Accomplishment', backref='studentAccomplishments', lazy='joined')
     incidents = db.relationship('IncidentReport', backref='studentincidents', lazy='joined')
