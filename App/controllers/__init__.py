@@ -10,3 +10,6 @@ from .incidentReport import *
 from .grades import *
 from .admin import *
 from .csv import *
+from .transcript import *
+from .nltk import *
+

@@ -164,12 +164,14 @@
     <div class="student-card">
         <div class="student-info">
             <h3>Name: {{ student.firstname }} {{ student.lastname }}</h3>
-            <p>Student ID: {{ student.ID }} </p>
+            <p>Student ID: {{ student.UniId }} </p>
             <p>Faculty: {{ student.faculty }}</p>
             <p>Degree: {{ student.degree }}</p>
         </div>
         <div class="student-buttons">
-        <button >Visit Student Profile</button>
+            <form method="GET" action="/getStudentProfile/{{student.UniId}}">
+                <button href="/getStudentProfile/{{student.UniId}}">Student Profile</button>
+            </form>
         </div>
     </div>
     {% endfor %}

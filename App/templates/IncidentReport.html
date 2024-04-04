@@ -148,8 +148,8 @@
     <div class="recommendation-form">
         <img src="IR.png" alt="Student Conduct Tracker">
         <h2>Incident Report</h2>
-        <form class = "sm" action="{{ url_for('staff_views.newIncidentReport') }}" method="post"> <!-- Added action="#" method="post" -->
-            <input type="text" id="name" name="name" placeholder="Name" required>
+        <form class="sm" action="/newIncidentReport" method="post">
+            <input type="text" id="name" name="name" placeholder="Student Name" required>
             <input type="text" id="studentID" name="studentID" placeholder="Student ID" required>
             <input type="text" id="topic" name="topic" placeholder="Topic" required>
             <textarea id="details" name="details" placeholder="Details" rows="5" required></textarea>
@@ -159,13 +159,13 @@
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-        <option value="4">4</option>
-<option value="5">5</option>
-</select>
-</div>
-<button type="submit">Submit</button>
-</div>
-</form>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>    
 
 
 </body>

@@ -1,8 +1,8 @@
 from App.models import Review
 from App.database import db 
 
-def create_review(staff, studentID, studentName, isPositive, points, details,topcs):
-    newReview = Review(staff, studentName,studentID , isPositive, points,details,topics)
+def create_review(staff, student, isPositive, points, details):
+    newReview = Review(staff, student, isPositive, points,details)
     db.session.add(newReview)
     try:
         db.session.commit()
@@ -49,7 +49,7 @@ def calculate_points_downvote(review):
         db.session.rollback()
         return False
 
-def get_total_points(studentID):
+def get_total_review_points(studentID):
     reviews = Review.query.filter_by(studentID=studentID).all()
     if reviews:
         sum = 0
