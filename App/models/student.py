@@ -35,13 +35,5 @@ class Student():
   def get_id(self):
     return self.ID
 
-  # Gets the student details and returns in JSON format
-  def to_json(self, karma):
-
-    return {
-        "studentID":
-        self.ID
-    }
-
   def __repr__(self):
     return f'<Student {self.studentID}>'
